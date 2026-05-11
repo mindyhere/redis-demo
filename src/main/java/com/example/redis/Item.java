@@ -16,7 +16,9 @@ import java.io.Serializable;
 @RedisHash("item")
 public class Item implements Serializable {
     @Id
-    private Long id;
+    // Id String -> UUID 가 자동으로 배정된다.
+    private String id;
+//    private Long id;
     private String name;
     private String description;
     private Integer price;
