@@ -3,6 +3,7 @@ package com.example.redis;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -32,5 +33,28 @@ public class RedisTemplateTests {
 
         redisTemplate.expire("hobbies", 10, TimeUnit.SECONDS);
         redisTemplate.delete("simpleKey");
+    }
+
+    @Autowired
+    private RedisTemplate<String, ItemDTO> itemRedisTemplate;
+
+    @Test
+    public void itemRedisTemplateTest() {
+        ValueOperations<String, ItemDTO> ops = itemRedisTemplate.opsForValue();
+
+        ops.set("my:keyboard", ItemDTO.builder()
+                .name("Mechanical Keyboard")
+                .price(250000)
+                .description("TOO Expensive")
+                .build());
+
+        System.out.println("MGET keyboard ##### "+ ops.get("my:keyboard"));
+
+        ops.set("my:mouse", ItemDTO.builder()
+                .name("Logitech Mouse")
+                .price(100000)
+                .description("TOO Expensive")
+                .build());
+        System.out.println("MGET mouse ##### " + ops.get("my:mouse"));
     }
 }
