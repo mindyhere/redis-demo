@@ -1,6 +1,5 @@
 package com.example.redis;
 
-import com.example.redis.repository.OrderRepository;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.GetMapping;

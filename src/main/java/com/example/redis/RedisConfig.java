@@ -22,4 +22,15 @@ public class RedisConfig {
 
         return  template;
     }
+
+    @Bean
+    public RedisTemplate<String, Integer> articleTemplate(
+        RedisConnectionFactory connectionFactory
+    ) {
+        RedisTemplate<String, Integer> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+        template.setKeySerializer(RedisSerializer.string());
+        template.setValueSerializer(RedisSerializer.string());
+        return template;
+    }
 }
