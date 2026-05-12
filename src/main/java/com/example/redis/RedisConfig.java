@@ -33,4 +33,12 @@ public class RedisConfig {
         template.setValueSerializer(RedisSerializer.string());
         return template;
     }
+
+    /**
+     * 기본 Java 기반 직렬화 ->  JSON을 비롯한 방식으로 직렬화
+     */
+    @Bean
+    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
+        return RedisSerializer.json();
+    }
 }
