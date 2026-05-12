@@ -1,6 +1,7 @@
 package com.example.redis.config;
 
 import com.example.redis.domain.ItemDTO;
+import com.example.redis.domain.ItemOrderDTO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -57,6 +58,17 @@ public class RedisConfig {
         template.setValueSerializer(RedisSerializer.json());
 
         return  template;
+    }
+
+    @Bean
+    public RedisTemplate<String, ItemOrderDTO> orderTemplate(
+        RedisConnectionFactory redisConnectionFactory
+    ) {
+        RedisTemplate<String, ItemOrderDTO> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
+        template.setKeySerializer(RedisSerializer.string());
+        template.setValueSerializer(RedisSerializer.java());
+        return template;
     }
 
     @Bean
