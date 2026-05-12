@@ -1,5 +1,6 @@
 package com.example.redis;
 
+import com.example.redis.domain.Item;
 import com.example.redis.repository.ItemRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,13 @@ public class RedisRepositoryTests {
 
     @Test
     public void readOneTest() {
-        Item item = itemRepository.findById("").orElseThrow();
+        Item item = itemRepository.findById(1L).orElseThrow();
         System.out.println(item.getDescription());
     }
 
     @Test
     public void updateTest() {
-        Item item = itemRepository.findById("").orElseThrow();
+        Item item = itemRepository.findById(1L).orElseThrow();
         item.setDescription("##### ON SALE");
         item = itemRepository.save(item);
         System.out.println(item.getDescription());
@@ -40,6 +41,6 @@ public class RedisRepositoryTests {
 
     @Test
     public void deleteTest() {
-        itemRepository.deleteById("");
+        itemRepository.deleteById(1L);
     }
 }

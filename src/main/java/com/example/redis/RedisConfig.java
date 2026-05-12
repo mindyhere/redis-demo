@@ -1,5 +1,6 @@
 package com.example.redis;
 
+import com.example.redis.domain.ItemDTO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -40,5 +41,21 @@ public class RedisConfig {
     @Bean
     public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
         return RedisSerializer.json();
+    }
+
+    /**
+     * 리더보드 실습
+     */
+    @Bean
+    public RedisTemplate<String, ItemDTO> rankTemplate(
+        RedisConnectionFactory connectionFactory
+    ) {
+        RedisTemplate<String, ItemDTO> template = new RedisTemplate<>();
+
+        template.setConnectionFactory(connectionFactory);
+        template.setKeySerializer(RedisSerializer.string());
+        template.setValueSerializer(RedisSerializer.json());
+
+        return  template;
     }
 }

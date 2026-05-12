@@ -1,8 +1,7 @@
 package com.example.redis.repository;
 
 
-import com.example.redis.Item;
-import org.springframework.data.repository.CrudRepository;
+import com.example.redis.domain.Item;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ItemRepository extends CrudRepository<Item, String> {
-}
+public interface ItemRepository extends JpaRepository<Item, Long> { }

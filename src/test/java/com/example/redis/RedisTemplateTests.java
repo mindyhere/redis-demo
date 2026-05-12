@@ -1,5 +1,6 @@
 package com.example.redis;
 
+import com.example.redis.domain.ItemDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
