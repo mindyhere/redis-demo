@@ -1,4 +1,4 @@
-package com.example.redis;
+package com.example.redis.config;
 
 import com.example.redis.domain.ItemDTO;
 import org.springframework.context.annotation.Bean;

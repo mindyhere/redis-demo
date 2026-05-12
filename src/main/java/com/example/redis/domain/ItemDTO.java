@@ -2,12 +2,14 @@ package com.example.redis.domain;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemDTO {
+public class ItemDTO implements Serializable {
     private Long id;
     private String name;
     private String description;
@@ -23,9 +25,3 @@ public class ItemDTO {
     }
 }
 
-//public class ItemDTO implements Serializable {
-//    private String name;
-//    private String description;
-//    private Integer price;
-//
-//}
