@@ -58,4 +58,17 @@ public class RedisConfig {
 
         return  template;
     }
+
+    @Bean
+    public RedisTemplate<String, String> cartTemplate(
+        RedisConnectionFactory connectionFactory
+    ) {
+        RedisTemplate<String, String> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+        template.setKeySerializer(RedisSerializer.string());
+        template.setHashKeySerializer(RedisSerializer.string());
+        template.setHashValueSerializer(new GenericToStringSerializer<>(Integer.class));
+
+        return template;
+    }
 }
