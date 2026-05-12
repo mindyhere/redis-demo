@@ -19,8 +19,7 @@ import static org.springframework.data.redis.serializer.RedisSerializationContex
 public class CacheConfig {
     @Bean
     public RedisCacheManager cacheManager(
-        RedisConnectionFactory connectionFactory,
-        LettuceConnectionFactory redisConnectionFactory
+        RedisConnectionFactory connectionFactory
     ) {
         /**
          * 설정 구성 진행
@@ -29,15 +28,26 @@ public class CacheConfig {
         RedisCacheConfiguration cofing = RedisCacheConfiguration
             .defaultCacheConfig()
             .disableCachingNullValues() // null을 캐싱 하는지
-            .entryTtl(Duration.ofSeconds(10))   // 기본 캐시 유지 시간(Time to live)
+            .entryTtl(Duration.ofSeconds(120))   // 기본 캐시 유지 시간(Time to live)
             .computePrefixWith(CacheKeyPrefix.simple()) // 캐시를 구분하는 접두사 설정
             .serializeValuesWith( // 캐시에 저장할 값을 어떻게 직렬화/역직렬화 할것인지
                 SerializationPair.fromSerializer(RedisSerializer.java())
             );
 
+        RedisCacheConfiguration individual = RedisCacheConfiguration
+            .defaultCacheConfig()
+            .disableCachingNullValues()
+            .entryTtl(Duration.ofSeconds(20))
+            .enableTimeToIdle()
+            .computePrefixWith(CacheKeyPrefix.simple())
+            .serializeValuesWith(
+                SerializationPair.fromSerializer(RedisSerializer.json())
+            );
         return RedisCacheManager
-                .builder(redisConnectionFactory)
+                .builder(connectionFactory)
                 .cacheDefaults(cofing)
+                .withCacheConfiguration("storeCache", individual)
                 .build();
     }
+
 }
